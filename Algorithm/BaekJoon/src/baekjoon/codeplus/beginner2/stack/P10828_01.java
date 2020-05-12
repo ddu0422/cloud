@@ -60,7 +60,7 @@ public class P10828_01 {
         return "";
     }
 
-    static class Stack<T> {
+    private static class Stack<T> {
         private Object[] objects;
         private int size = 0;
 

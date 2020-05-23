@@ -1,0 +1,46 @@
+// 프로젝트의 플러그인 의존성 관리를 위한 설정
+buildscript {
+    // 전역변수를 설정
+    ext {
+        springBootVersion = '2.1.7.RELEASE'
+    }
+    // 각종 라이브러리들을 어떤 원격 저장소에서 받을지 결정
+    // - 라이브러리 업로드 난이도로 인해 mavenCentral -> jcenter로 이동하는 추세
+    // - jcenter에 라이브러리를 업로드하면 mavenCentral에도 업로드될 수 있도록 자동화 가능
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    // 의존성 추가
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+// 앞에 선언한 플러그인 의존성들을 적용할 것인지 결정하는 코드
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+// 스프링 부트의 의존성들을 관리해 주는 플러그인
+apply plugin: 'io.spring.dependency-management'
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+// 특정 버전을 명시하지 않아야 위의 버전을 따라갈 수 있다.
+// A <- B <- C : A를 의존하는 모듈이 B, C
+// - compile : A 수정 시 (직접)B, (간접)C 모두 rebuild
+// - implementation : A 수정 시 (직접)B만 수정
+// - implementation 장점
+//   - dependency가 적고 recomplie을 적게 해서 소요 시간이 줄어든다.
+//   - 필요한 API만 노출한다. (compile은 모든 API를 노출한다.)
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}

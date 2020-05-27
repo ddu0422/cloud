@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- 배포 시 development -> prduction으로 바꾼다. -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <!-- 
+        <div id="root">
+            <button>Like</button>
+        </div>
+     -->
+    <script>
+        const e = React.createElement;
+
+        class LikeButton extends React.Component {
+            constructor(props) {
+                super(props);
+                // 상태를 가지고 있다.
+                this.state = {
+                    liked: false,
+                };
+            }
+
+            // 화면에 어떻게 표시할까? -> render()를 이용
+            render() {
+                // tag, html attribute [객체 형식으로 표현, Camel Case], text
+                // <button onclick="() => console.log('clicked')">Like</button>
+                return e('button', {
+                    onClick: () => this.setState({ liked: true}),
+                    type: 'submit',
+                },
+                this.state.liked === true ? 'Liked' : 'Like');
+            }
+        }
+    </script>
+    <script>
+        // ReactDOM을 이용해 웹에 rendering 해준다.
+        ReactDOM.render(e(LikeButton), document.querySelector('#root'));
+    </script>
+</body>
+
+</html>

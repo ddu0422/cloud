@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <!-- 배포 시 development -> prduction으로 바꾼다. -->
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- 실험적인 javascript 문법을 사용할 수 있게 해준다. -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 </head>
 
 <body>
@@ -14,8 +16,8 @@
             <button>Like</button>
         </div>
      -->
-    <script>
-        const e = React.createElement;
+    <script type="text/babel">
+        // const e = React.createElement;
 
         class LikeButton extends React.Component {
             constructor(props) {
@@ -28,19 +30,16 @@
 
             // 화면에 어떻게 표시할까? -> render()를 이용
             render() {
-                // tag, html attribute [객체 형식으로 표현, Camel Case], text
-                // <button onclick="() => console.log('clicked')">Like</button>
-                return e('button', {
-                    onClick: () => this.setState({ liked: true}),
-                    type: 'submit',
-                },
-                this.state.liked === true ? 'Liked' : 'Like');
+                // JSX (Javascript + XML)
+                return <button type="submit" onClick={() => this.setState({ liked: true })}>
+                  { this.state.liked === true ? 'Liked' : 'Like'}
+                </button>
             }
         }
     </script>
-    <script>
+    <script type="text/babel">
         // ReactDOM을 이용해 웹에 rendering 해준다.
-        ReactDOM.render(e(LikeButton), document.querySelector('#root'));
+        ReactDOM.render(<LikeButton />, document.querySelector('#root'));
     </script>
 </body>
 

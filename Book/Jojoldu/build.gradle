@@ -41,6 +41,11 @@ repositories {
 //   - dependency가 적고 recomplie을 적게 해서 소요 시간이 줄어든다.
 //   - 필요한 API만 노출한다. (compile은 모든 API를 노출한다.)
 dependencies {
+    
+    // lombok 설정
+    implementation('org.projectlombok:lombok')
+
+    // Spring Boot 설정
     implementation('org.springframework.boot:spring-boot-starter-web')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

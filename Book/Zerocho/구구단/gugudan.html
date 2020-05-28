@@ -37,16 +37,20 @@
                   value: '',
                 });
               }
+              this.input.focus()
             }
 
             onChange = (e) => this.setState({ value: e.target.value });
 
+            input;
+
             render() {
+                console.log('렌더링'); // setState 함수를 실행하면 redner()가 발생한다.
                 return (
                   <React.Fragment>
                     <div>{this.state.first} * {this.state.second}는?</div>
                     <form onSubmit={this.onSubmit}>
-                      <input type="number" value={this.state.value} onChange={this.onChange} />
+                      <input ref={(c) => this.input = c} type="number" value={this.state.value} onChange={this.onChange} />
                       <button>입력</button>
                       <div>{this.state.result}</div>
                     </form>

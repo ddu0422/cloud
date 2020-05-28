@@ -12,16 +12,25 @@
     <div id="root"></div>
     <script type="text/babel">
         class GuGuDan extends React.Component {
-            constructor(props) {
-                super(props)
-                this.state = {
-                    first: Math.ceil(Math.random() * 9),
-                    second: Math.ceil(Math.random() * 9),
-                    value: '',
-                    result: '',
-                }
-            }
+            // 현업에서는 constructor를 잘 사용하지 않는다.
+            // constructor(props) {
+            //     super(props)
+            //     this.state = {
+            //         first: Math.ceil(Math.random() * 9),
+            //         second: Math.ceil(Math.random() * 9),
+            //         value: '',
+            //         result: '',
+            //     }
+            // }
+            state = {
+              first: Math.ceil(Math.random() * 9),
+              second: Math.ceil(Math.random() * 9),
+              value: '',
+              result: '',
+            };
 
+            // function() 과 () => 는 this가 다르다.
+            // 현재는 () =>만 사용하자.
             onSubmit = (e) => {
               e.preventDefault();
 
@@ -29,7 +38,7 @@
 
               if (parseInt(this.state.value) === this.state.first * this.state.second) {
                 this.setState({
-                  result: '정답',
+                  result: '정답 ' + this.state.first * this.state.second,
                   first: Math.ceil(Math.random() * 9),
                   second: Math.ceil(Math.random() * 9),
                   value: '',
@@ -46,14 +55,17 @@
 
             render() {
                 return (
-                  <div>
+                  // css 적용시 쓸데없는 div가 있으면 적용하기 힘들다.
+                  // 현재 babel은 <>를 지원하지 않아서 React.Fragment를 사용하고
+                  // babel2를 사용할 때 <> 태그를 사용한다.
+                  <React.Fragment>
                     <div>{this.state.first} * {this.state.second}는?</div>
                     <form onSubmit={this.onSubmit}>
                       <input type="number" value={this.state.value} onChange={this.onChange} />
                       <button>입력</button>
                       <div>{this.state.result}</div>
                     </form>
-                  </div>
+                  </React.Fragment>
                 );
             }
         }

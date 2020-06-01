@@ -41,6 +41,12 @@
         inputRef.current.focus();
       }
 
+      // state가 바뀌면 함수 전체가 재실행이 된다.
+      console.log('렌더링');
+
+      // react내부에선 html 속성으로 class, for을 사용할 수 없다
+      // class -> className
+      // for -> label
       return (
         <React.Fragment>
           <div>{first} * {second}는?</div>

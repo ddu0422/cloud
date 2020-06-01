@@ -48,4 +48,18 @@ dependencies {
     // Spring Boot 설정
     implementation('org.springframework.boot:spring-boot-starter-web')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+    // Spring Data JPA 설정
+    // 스프링 부트용 Spring Data Jpa 추상화 라이브러리
+    // JPA <- Hibernate <- Spring Data Jpa
+    // Hibernate를 한 번 더 감싼 이유는?
+    // 1. 구현체 교체의 용이성
+    //  Hibernate 외에 다른 구현체로 쉽게 교체하기 위함
+    // 2. 저장소 교체의 용이성
+    //  관계형 데이터베이스 외에 다른 저장소로 쉽게 교체하기 위함
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    // H2 Database
+    // 인메모리 관계형 데이터베이스
+    implementation('com.h2database:h2')
 }

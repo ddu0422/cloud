@@ -1,4 +1,6 @@
-# 구구단을 웹팩으로 만들어보자
+# 노트
+
+## 구구단 Webpack 설정
 
 1. npm init
   - name : gugudan
@@ -79,3 +81,38 @@ module.exports = {
 
 8. npx webpack
 9. gugudan.html 실행
+
+## Webpack Auto Reload
+
+1. react-hot-loader / webpack-dev-server 설치
+
+```
+npm i -D react-hot-loader
+npm i -D webpack-dev-server
+```
+
+2. webpack-dev-server 실행
+
+- webpack-dev-server가 webpack.config.js를 읽어서 백에서 build해서 서버에서 유지한다.
+
+```
+package.json -> dev: "webpack-dev-server" 바꿈
+npm run dev
+-> Server가 뜸
+```
+
+3. dist 폴더 삭제 -> 경로 app.js로 변경
+4. client.js 수정
+
+```javascript
+const { hot } = require('react-hot-loader/root');
+const Hot = hot(WordRelay);
+```
+
+5. webpack.config.js -> rules: plugins 추가
+
+```
+react-hot-loader/babel
+```
+
+6. npm run dev

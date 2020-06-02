@@ -1,5 +1,6 @@
 package com.jojoldu.book.springboot.domain.posts;
 
+import com.jojoldu.book.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 // 테이블과 링크될 클래스
 // 기본값으로 클래스의 camelCase 이름을 under_score 네이밍으로 테이블 이름을 매칭
 @Entity
-public class Posts {
+public class Posts extends BaseTimeEntity {
 
     // 해당 테이블의 PK 필드
     @Id

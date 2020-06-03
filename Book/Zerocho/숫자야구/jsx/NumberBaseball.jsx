@@ -7,10 +7,14 @@ function getNumbers() {
 
 class NumberBaseball extends Component {
   state = {
-   result: '',
-   value: '',
-   answer: getNumbers(),
-   tries: ['사과', '오렌지', '바나나'],
+    result: '',
+    value: '',
+    answer: getNumbers(),
+    tries: [
+      { fruit: '사과', taste: '맛있다' },
+      { fruit: '귤', taste: '내놔라' },
+      { fruit: '바나나', taste: '먹어라' },
+    ],
   };
 
   onSubmitForm = () => {
@@ -30,11 +34,12 @@ class NumberBaseball extends Component {
         </form>
         <div>시도: {this.state.tries.length}</div>
         <ul>
-          {this.state.tries.map((v) => {
-            return (
-              <li>{v}</li>
-            )
-          })}
+          {/*
+             i를 사용하여 key를 사용하지 말자
+             react에서 key를 기준으로 element를 추가하너가 수정, 삭제를 판단하기 때문에 배열의 순서가 바뀌면 문제가 생긴다.
+             배열에 id를 넣는다??
+           */}
+          {this.state.tries.map((v, i) => <li key={i}><b>{v.fruit}</b> - {v.taste}</li>)}
         </ul>
       </>
     )

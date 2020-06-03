@@ -62,4 +62,7 @@ dependencies {
     // H2 Database
     // 인메모리 관계형 데이터베이스
     implementation('com.h2database:h2')
+
+    // mustache
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
 }

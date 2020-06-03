@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Try from './Try';
 
 // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
 function getNumbers() {
@@ -34,12 +35,11 @@ class NumberBaseball extends Component {
         </form>
         <div>시도: {this.state.tries.length}</div>
         <ul>
-          {/*
-             i를 사용하여 key를 사용하지 말자
-             react에서 key를 기준으로 element를 추가하너가 수정, 삭제를 판단하기 때문에 배열의 순서가 바뀌면 문제가 생긴다.
-             배열에 id를 넣는다??
-           */}
-          {this.state.tries.map((v, i) => <li key={i}><b>{v.fruit}</b> - {v.taste}</li>)}
+          {this.state.tries.map((v, i) => {
+            return (
+              <Try key={v.fruit + v.taste} v={v} i={i} />
+            );
+          })}
         </ul>
       </>
     )

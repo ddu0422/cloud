@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
-import NumberBaseball from './jsx/NumberBaseball';
+import NumberBaseballHook from './jsx/NumberBaseballHook';
 
-const Hot = hot(NumberBaseball);
+const Hot = hot(NumberBaseballHook);
 
-ReactDOM.render(<NumberBaseball />, document.querySelector('#root'));
+ReactDOM.render(<NumberBaseballHook />, document.querySelector('#root'));

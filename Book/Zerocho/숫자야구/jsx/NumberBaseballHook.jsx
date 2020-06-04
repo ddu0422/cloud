@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import TryHook from './TryHook';
 
 // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -18,6 +18,7 @@ const NumberBaseballHook = () => {
   const [value, setValue] = useState('');
   const [answer, setAnswer] = useState(getNumbers());
   const [tries, setTries] = useState([]);
+  const inputEl = useRef(null);
 
   const onSubmitForm = (e) => {
     e.preventDefault();
@@ -57,6 +58,7 @@ const NumberBaseballHook = () => {
         setValue('');
       }
     }
+    inputEl.current.focus();
   };
 
   const onChangeInput = (e) => {

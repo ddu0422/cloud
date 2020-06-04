@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Try from './Try';
 
 // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
@@ -73,6 +73,7 @@ class NumberBaseball extends Component {
         });
       }
     }
+    this.inputRef.current.focus()
   };
 
   onChangeInput = (e) => {
@@ -81,6 +82,8 @@ class NumberBaseball extends Component {
     })
   };
 
+  inputRef = createRef();
+
   render() {
     const { result, value, tries } = this.state;
 
@@ -88,7 +91,12 @@ class NumberBaseball extends Component {
       <>
         <h1>{result}</h1>
         <form onSubmit={this.onSubmitForm}>
-          <input maxLength={4} value={value} onChange={this.onChangeInput} />
+          <input
+            ref = {this.inputRef}
+            maxLength={4}
+            value={value}
+            onChange={this.onChangeInput}
+          />
         </form>
         <div>시도: {tries.length}</div>
         <ul>

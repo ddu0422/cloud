@@ -101,4 +101,28 @@ public class PostsApiControllerTest {
         assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
         assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
     }
+
+    @Test
+    public void Posts_삭제된다() throws Exception {
+        // given
+        Posts savedPosts = postsRepository.save(Posts.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+
+        List<Posts> postsList1 = postsRepository.findAll();
+        assertThat(postsList1.size()).isEqualTo(1);
+
+        Long deletedId = savedPosts.getId();
+
+        String url = URL + port + "/api/v1/posts/" + deletedId;
+
+        // when
+        testRestTemplate.delete(url);
+
+        // then
+        postsList1 = postsRepository.findAll();
+        assertThat(postsList1.size()).isEqualTo(0);
+    }
 }

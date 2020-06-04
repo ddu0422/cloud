@@ -13,7 +13,7 @@ function getNumbers() {
   return array;
 }
 
-const NumberBaseball = () => {
+const NumberBaseballHook = () => {
   const [result, setResult] = useState('');
   const [value, setValue] = useState('');
   const [answer, setAnswer] = useState(getNumbers());
@@ -38,7 +38,7 @@ const NumberBaseball = () => {
       let ball = 0;
 
       if (tries.length >= 9) {
-        setResult(`10번 넘게 틀려서 실패! 답은 ${prevState.answer.join(', ')} 입니다.`)
+        setResult(`10번 넘게 틀려서 실패! 답은 ${answer.join(', ')} 입니다.`)
         alert('게임을 다시 시작합니다!');
         setValue('');
         setAnswer(getNumbers());
@@ -60,7 +60,6 @@ const NumberBaseball = () => {
   };
 
   const onChangeInput = (e) => {
-    console.log(answer);
     setValue(e.target.value)
   };
 
@@ -82,4 +81,4 @@ const NumberBaseball = () => {
   )
 }
 
-export default NumberBaseball;
+export default NumberBaseballHook;

@@ -70,13 +70,12 @@ class NumberBaseball extends Component {
             result: `${strike} 스트라이크, ${ball} 볼입니다.`,
           }],
           value: '',
-        })
+        });
       }
     }
   };
 
   onChangeInput = (e) => {
-    console.log(this.state.answer);
     this.setState({
       value: e.target.value,
     })

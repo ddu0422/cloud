@@ -1,6 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class Try extends Component {
+class Try extends PureComponent {
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
+    return true;
+  }
+
   render() {
     const { tryInfo } = this.props;
 

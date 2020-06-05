@@ -70,4 +70,7 @@ dependencies {
     // spring-security-oauth2-client와 spring-security-jose를 기본으로 관리
     // spring security
     implementation('org.springframework.boot:spring-boot-starter-oauth2-client')
+
+    // spring-session-jdbc
+    implementation('org.springframework.session:spring-session-jdbc')
 }

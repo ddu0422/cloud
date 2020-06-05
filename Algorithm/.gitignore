@@ -1,0 +1,13 @@
+### Back Default ###
+**/.DS_Store
+**/.gradle
+**/build/
+**/!gradle/wrapper/gradle-wrapper.jar
+**/out/
+**/target/
+
+### IntelliJ IDEA ###
+**/.idea
+**/*.iws
+**/*.iml
+**/*.ipr

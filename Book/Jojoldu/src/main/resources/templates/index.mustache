@@ -5,6 +5,15 @@
   <div class="row">
     <div class="col-md-6">
       <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+      {{#userName}}
+        Logged in as : <span id="user">{{userName}}</span>
+        <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+      {{/userName}}
+      {{^userName}}
+        <!-- Spring Security에서 기본적으로 제공하는 로그인 URL -->
+        <!-- 로그아웃 URL과 마찬가지로 개발자가 별도의 컨트롤러를 생성할 필요가 없음-->
+        <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+      {{/userName}}
     </div>
     <br />
     <!-- 목록 출력 영역 -->

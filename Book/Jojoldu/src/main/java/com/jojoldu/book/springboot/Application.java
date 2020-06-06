@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 // JPA Auditing Annotation 활성화
-@EnableJpaAuditing
+// @EnableJpaAuditing
 // 스프링 부트의 자동 설정, 스프링 Bean 읽기와 생성을 모두 자동으로 설정
 // @SpringBootApplication이 있는 위치부터 설정을 읽기 때문에 프로젝트 최상단에 위치
 // 내장 WAS 사용 : 언제 어디서나 같은 환경에서 스프링 부트를 배포

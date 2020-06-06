@@ -73,4 +73,7 @@ dependencies {
 
     // spring-session-jdbc
     implementation('org.springframework.session:spring-session-jdbc')
+
+    // spring-security-test
+    testImplementation('org.springframework.security:spring-security-test')
 }

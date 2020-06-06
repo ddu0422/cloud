@@ -89,3 +89,26 @@ ReactDOM.render(<Hot />, document.querySelector('#root'));
 ```
 
 5. npm run dev
+
+## Componet Exports
+
+1. module.exports
+
+```jsx
+module.exports = Component;
+```
+
+2. export default
+
+```jsx
+// export default는 하나만 존재할 수 있다.
+export default Component;
+export const hello = 'hello';
+// import { hello } from ... 으로 사용할 수 있다.
+```
+
+## import vs require
+
+- babel이 import를 require로 바꿔준다.
+- require는 Node에서 import는 React에서 사용하자.
+- 단, babel이 import를 바꿔주므로 webpack.config.js 에선 const를 사용해야한다.

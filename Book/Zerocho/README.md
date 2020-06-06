@@ -1,61 +1,37 @@
 # 노트
 
-## 구구단 Webpack 설정
+## React Project
 
 1. npm init
   - name : gugudan
   - author : duho
   - license: MIT
 
-2. react, react-dom 설치
+2. plugin 설치
 
-```
+```script
 npm i react react-dom
-```
-
-3. webpack 설치
-```
 npm i -D webpack
 npm i -D webpack-cli
-```
-
-4. babel 설치
-
-```text
 npm i -D @babel/core
 npm i -D @babel/preset-env
 npm i -D @babel/preset-react
 npm i -D babel-loader
+npm i -D webpack-dev-server
+npm i -D react-hot-loader
+// class에서 state 사용시 설치
 npm i -D @babel/plugin-proposal-class-properties
 ```
 
-5. GuGuDan.jsx 작성
-
-```
-~~~~~
-
-module.exports = GuGudan
-```
-
-6. Client.jsx 작성
+3. webpack.config.js 설정
 
 ```javascript
-const React = require('react');
-const ReactDom = require('react-dom');
-const GuGuDan = require('GuGuDan');
-
-ReactDom.render(<GuGuDan />, document.querySelector('#root'))
-```
-
-7. webpack.config.js 설정
-
-```javascript
-const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  name: 'gugudan-setting',
-  mode: 'development',
-  devtool: 'eval',
+  name: 'component-setting',
+  mode: 'development', // 배포 시 production
+  devtool: 'eval', // 배포 시 hidden-source-map
   resolve: {
     extentions: ['.jsx', '.js'],
   },
@@ -67,52 +43,49 @@ module.exports = {
       test: /\.jsx?/,
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env', '@babel/preset-react'],
-        plugins: ['@babel/plugin-proposal-class-properties']
+        presets: ['@babel/preset-env', {
+            // 필요 시 설정
+            targets: {
+              browsers: [
+                '> 5% in KR',
+                'last 2 chrome versions'
+              ]
+            },
+          }],
+          '@babel/preset-react'],
+        plugins: [
+          '@babel/plugin-proposal-class-properties',
+          'react-hot-loader/babel'
+        ],
       },
     }],
   },
+  // module option에 전체 적용할 때 사용
+  plugins: [
+    new webpack.LoaderOptionsPlugin({ debug: true }),
+  ],
   output: {
-    path: path.join(__dirname, 'dist'),
+    publicPath: '/dist/',
     filename: 'app.js',
   },
 }
 ```
 
-8. npx webpack
-9. gugudan.html 실행
-
-## Webpack Auto Reload
-
-1. react-hot-loader / webpack-dev-server 설치
-
-```
-npm i -D react-hot-loader
-npm i -D webpack-dev-server
-```
-
-2. webpack-dev-server 실행
-
-- webpack-dev-server가 webpack.config.js를 읽어서 백에서 build해서 서버에서 유지한다.
-
-```
-package.json -> dev: "webpack-dev-server" 바꿈
+```javascript
+// webpack-dev-server가 webpack.config.js를 읽어서 백에서 build해서 서버에서 유지한다.
+package.json -> dev: "webpack-dev-server"로 바꿈 
 npm run dev
 -> Server가 뜸
 ```
 
-3. dist 폴더 삭제 -> 경로 app.js로 변경
-4. client.js 수정
+4. client.js
 
-```javascript
+```jsx
 const { hot } = require('react-hot-loader/root');
-const Hot = hot(WordRelay);
+const Component require('./jsx/Component');
+const Hot = hot(Component);
+
+ReactDOM.render(<Hot />, document.querySelector('#root'));
 ```
 
-5. webpack.config.js -> rules: plugins 추가
-
-```
-react-hot-loader/babel
-```
-
-6. npm run dev
+5. npm run dev

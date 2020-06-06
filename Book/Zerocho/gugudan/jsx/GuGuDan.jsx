@@ -4,7 +4,7 @@ function createNumber() {
   return Math.ceil(Math.random() * 9);
 }
 
-class Temp extends PureComponent {
+class GuGuDan extends PureComponent {
   state = {
     first: createNumber(),
     second: createNumber(),
@@ -21,17 +21,19 @@ class Temp extends PureComponent {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const result = this.state.first * this.state.second;
+    const { first, second, answer } = this.state;
+    const result = first * second;
 
-    if (parseInt(this.state.answer) === result) {
+    if (parseInt(answer) === result) {
       this.setState({
         first: createNumber(),
         second: createNumber(),
-        answer: this.state.value,
-        message: '딩동댕',
+        answer: '',
+        message: result + '!! 딩동댕',
       });
     } else {
       this.setState({
+        answer: '',
         message: '땡',
       });
     }
@@ -41,18 +43,20 @@ class Temp extends PureComponent {
   inputRef = createRef();
 
   render() {
+    const { first, second, answer, message } = this.state;
+
     return (
       <>
         <div>구구단 게임</div>
-        <div>문제: {this.state.first} * {this.state.second} 는?</div>
+        <div>문제: {first} * {second} 는?</div>
         <form onSubmit={this.onSubmit}>
           <label htmlFor="answer">입력: </label>
-          <input ref={this.inputRef} type="number" value={this.state.answer || ''} onChange={this.onChange} id="answer" />
+          <input ref={this.inputRef} type="number" value={answer || ''} onChange={this.onChange} id="answer" />
         </form>
-        <div>{this.state.message}</div>
+        <div>{message}</div>
       </>
     )
   }
 }
 
-export default Temp;
+export default GuGuDan;

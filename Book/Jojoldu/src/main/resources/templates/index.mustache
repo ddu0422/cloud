@@ -14,8 +14,12 @@
         <!-- 로그아웃 URL과 마찬가지로 개발자가 별도의 컨트롤러를 생성할 필요가 없음-->
         <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
       {{/userName}}
+      {{^userName}}
+      <!-- 네이버 로그인 URL은 application-oauth.yml에 등록한 redirect_uri_template 값에 맞춰 등록-->
+        <a href="/oauth2/authorization/naver" class="btn btn-success active" role="button">Naver Login</a>
+      {{/userName}}
     </div>
-    <br />
+    <br/>
     <!-- 목록 출력 영역 -->
     <table class="table table-horizontal table-bordered">
       <thead class="thead-strong">

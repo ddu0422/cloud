@@ -7,28 +7,63 @@ class ResponseCheck extends Component {
     result: [],
   };
 
-  onClickScreen = () => {
+  timeout;
+  startTime;
+  endTime;
 
+  onClickScreen = () => {
+    const {state, message, result} = this.state;
+
+    if (state === 'waiting') {
+      this.setState({
+        state: 'ready',
+        message: '초록색이 되면 클릭하세요.',
+      });
+      this.timeout = setTimeout(() => {
+        this.setState({
+          state: 'now',
+          message: '지금 클릭',
+        });
+        this.startTime = new Date();
+      }, Math.floor(Math.random() * 1000) + 2000);
+    } else if (state === 'ready') {
+      clearTimeout(this.timeout);
+      this.setState({
+        state: 'waiting',
+        message: '너무 성급하시군요 ! 초록색이 된 후에 클릭하세요.',
+      });
+    } else if (state === 'now') {
+      this.endTime = new Date();
+      this.setState((prevState) => {
+        return {
+          state: 'waiting',
+          message: '클릭해서 시작하세요.',
+          result: [...prevState.result, this.endTime - this.startTime],
+        }
+      });
+    }
+  }
+
+  renderAverage = () => {
+    const {result} = this.state;
+
+    return result.length !== 0 
+        && <div>평균시간: {result.reduce((a, c) => a + c) / result.length} ms</div>
   }
 
   render() {
+    const { state, message} = this.state;
+
     return (
       <>
-        {/* if문, for문을 사용할 수 있지만 가독성이 좋지 않아 다른 방법을 사용한다. */}
         <div
           id="screen"
-          className={this.state.state}
+          className={state}
+          onClick={this.onClickScreen}
         >
-          {this.state.message}
+          {message}
         </div>
-        {/* 조건문 : 조건부 연산자(삼항 연산자)를 사용한다. */}
-        {/* {this.state.result.length === 0
-          ? null
-          : <div>평균시간: {this.state.result.reduce((a, c) => a + c) / this.state.result.length} ms</div>
-        } */}
-        {/* 혹은 부울 연산자를 사용한다. */}
-        {this.state.result.length !== 0 
-        && <div>평균시간: {this.state.result.reduce((a, c) => a + c) / this.state.result.length} ms</div>}
+        {this.renderAverage()}
       </>
     );
   }

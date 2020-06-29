@@ -1,40 +1,59 @@
 import React, { Component } from "react";
 
-/*
-  class의 경우
-  1. constructor
-  2. render
-  3. ref
-  4. componentDidMount
-  (setState/prpos 바뀔때)
-  5. shouldComponentUpdate(true)
-  6. re-render
-  7 componentDidUpate
-  (부모가 나를 없앨 때)
-  8. componentWillUnmount
-*/
+const rspCoords = {
+  rock: "0px",
+  scissors: "-142px",
+  paper: "-284px",
+};
 
-// Component로 쓸데없이 리렌더링이 일어나는 부분을 찾는다.
+const scores = {
+  rock: 0,
+  scissors: 1,
+  paper: -1,
+};
+
 class RSP extends Component {
   state = {
     result: "",
-    imgCoord: 0,
+    imgCoord: rspCoords.rock,
     score: 0,
   };
 
-  // Component Life Cycle
-  // Component가 첫 rendering 된 후
+  interval;
+
+  // 비동기 요청을 많이 한다.
+  // component를 삭제해도 비동기 요청은 계속 된다.
   componentDidMount() {
-    console.log("did mount");
+    // 비동기안에서 바깥 함수를 참조하면 클로저 문제가 생긴다.
+    // const { imgCoord } = this.state;
+
+    this.interval = setInterval(() => {
+      const { imgCoord } = this.state;
+
+      if (imgCoord === rspCoords.rock) {
+        this.setState({
+          imgCoord: rspCoords.scissors,
+        });
+      } else if (imgCoord === rspCoords.scissors) {
+        this.setState({
+          imgCoord: rspCoords.paper,
+        });
+      } else if (imgCoord === rspCoords.paper) {
+        this.setState({
+          imgCoord: rspCoords.rock,
+        });
+      }
+    }, 1000);
   }
 
-  shouldComponentUpdate() {}
-
-  // Component가 re-rendering 된 후
   componentDidUpdate() {}
 
-  // Component가 제거되기 직전
-  componentWillMount() {}
+  // 비동기 요청 정리를 많이 한다.
+  componentWillMount() {
+    clearInterval(this.interval);
+  }
+
+  onClickBtn = (choice) => {};
 
   render() {
     const { result, score, imgCoord } = this.state;
@@ -51,21 +70,21 @@ class RSP extends Component {
           <button
             id="rock"
             className="button"
-            onClick={() => onClickBtn("rock")}
+            onClick={() => this.onClickBtn("rock")}
           >
             바위
           </button>
           <button
             id="scissors"
             className="button"
-            onClick={() => onClickBtn("scissors")}
+            onClick={() => this.onClickBtn("scissors")}
           >
             가위
           </button>
           <button
             id="paper"
             className="button"
-            onClick={() => onClickBtn("papar")}
+            onClick={() => this.onClickBtn("papar")}
           >
             보
           </button>

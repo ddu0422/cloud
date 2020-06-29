@@ -79,14 +79,17 @@ npm run dev
 -> Server가 뜸
 ```
 
-4. client.js
+4. client.jsx
 
 ```jsx
-const { hot } = require('react-hot-loader/root');
-const Component require('./jsx/Component');
+import React from "react";
+import ReactDOM from "react-dom";
+import { hot } from "react-hot-loader/root";
+import Component from "./Component";
+
 const Hot = hot(Component);
 
-ReactDOM.render(<Hot />, document.querySelector('#root'));
+ReactDOM.render(<Hot />, document.querySelector("#root"));
 ```
 
 5. npm run dev

@@ -12,6 +12,12 @@ const scores = {
   paper: -1,
 };
 
+const computerChoice = (imgCoord) => {
+  return Object.entries(rspCoords).find((v) => {
+    return v[1] === imgCoord;
+  })[0];
+};
+
 class RSP extends Component {
   state = {
     result: "",
@@ -21,39 +27,65 @@ class RSP extends Component {
 
   interval;
 
-  // 비동기 요청을 많이 한다.
-  // component를 삭제해도 비동기 요청은 계속 된다.
   componentDidMount() {
-    // 비동기안에서 바깥 함수를 참조하면 클로저 문제가 생긴다.
-    // const { imgCoord } = this.state;
-
-    this.interval = setInterval(() => {
-      const { imgCoord } = this.state;
-
-      if (imgCoord === rspCoords.rock) {
-        this.setState({
-          imgCoord: rspCoords.scissors,
-        });
-      } else if (imgCoord === rspCoords.scissors) {
-        this.setState({
-          imgCoord: rspCoords.paper,
-        });
-      } else if (imgCoord === rspCoords.paper) {
-        this.setState({
-          imgCoord: rspCoords.rock,
-        });
-      }
-    }, 1000);
+    this.interval = setInterval(this.changeHand, 100);
   }
 
   componentDidUpdate() {}
 
-  // 비동기 요청 정리를 많이 한다.
   componentWillMount() {
     clearInterval(this.interval);
   }
 
-  onClickBtn = (choice) => {};
+  onClickBtn = (choice) => {
+    const { imgCoord } = this.state;
+
+    clearInterval(this.interval);
+    const myScore = scores[choice];
+    const computerScore = scores[computerChoice(imgCoord)];
+    const diff = myScore - computerScore;
+
+    if (diff === 0) {
+      this.setState({
+        result: "비겼습니다.",
+      });
+    } else if ([-1, 2].includes(diff)) {
+      this.setState((prevState) => {
+        return {
+          result: "이겼습니다.",
+          score: prevState.score + 1,
+        };
+      });
+    } else {
+      this.setState((prevState) => {
+        return {
+          result: "졌습니다.",
+          score: prevState.score - 1,
+        };
+      });
+    }
+    setTimeout(() => {
+      this.interval = setInterval(this.changeHand, 100);
+    }, 2000);
+  };
+
+  changeHand = () => {
+    const { imgCoord } = this.state;
+
+    if (imgCoord === rspCoords.rock) {
+      this.setState({
+        imgCoord: rspCoords.scissors,
+      });
+    } else if (imgCoord === rspCoords.scissors) {
+      this.setState({
+        imgCoord: rspCoords.paper,
+      });
+    } else if (imgCoord === rspCoords.paper) {
+      this.setState({
+        imgCoord: rspCoords.rock,
+      });
+    }
+  };
 
   render() {
     const { result, score, imgCoord } = this.state;
@@ -84,7 +116,7 @@ class RSP extends Component {
           <button
             id="paper"
             className="button"
-            onClick={() => this.onClickBtn("papar")}
+            onClick={() => this.onClickBtn("paper")}
           >
             보
           </button>

@@ -3,9 +3,10 @@
 ## React Project
 
 1. npm init
-  - name : gugudan
-  - author : duho
-  - license: MIT
+
+- name : gugudan
+- author : duho
+- license: MIT
 
 2. plugin 설치
 
@@ -26,54 +27,54 @@ npm i -D @babel/plugin-proposal-class-properties
 3. webpack.config.js 설정
 
 ```javascript
-const webpack = require('webpack');
+const webpack = require("webpack");
 
 module.exports = {
-  name: 'component-setting',
-  mode: 'development', // 배포 시 production
-  devtool: 'eval', // 배포 시 hidden-source-map
+  name: "component-setting",
+  mode: "development",
+  devtool: "eval",
   resolve: {
-    extentions: ['.jsx', '.js'],
+    extensions: [".jsx", ".js"],
   },
   entry: {
-    app: ['./jsx/client'],
+    app: ["./client"],
   },
   module: {
-    rules: [{
-      test: /\.jsx?/,
-      loader: 'babel-loader',
-      options: {
-        presets: ['@babel/preset-env', {
-            // 필요 시 설정
-            targets: {
-              browsers: [
-                '> 5% in KR',
-                'last 2 chrome versions'
-              ]
-            },
-          }],
-          '@babel/preset-react'],
-        plugins: [
-          '@babel/plugin-proposal-class-properties',
-          'react-hot-loader/babel'
-        ],
+    rules: [
+      {
+        test: /\.jsx?/,
+        loader: "babel-loader",
+        options: {
+          presets: [
+            [
+              "@babel/preset-env",
+              {
+                targets: {
+                  browsers: ["> 5% in KR", "last 2 chrome versions"],
+                },
+              },
+            ],
+            "@babel/preset-react",
+          ],
+          plugins: [
+            "@babel/plugin-proposal-class-properties",
+            "react-hot-loader/babel",
+          ],
+        },
       },
-    }],
+    ],
   },
-  // module option에 전체 적용할 때 사용
-  plugins: [
-    new webpack.LoaderOptionsPlugin({ debug: true }),
-  ],
+  plugins: [new webpack.LoaderOptionsPlugin({ debug: true })],
   output: {
-    publicPath: '/dist/',
-    filename: 'app.js',
+    publicPath: "/dist/",
+    filename: "app.js",
   },
-}
+};
 ```
 
 ```javascript
 // webpack-dev-server가 webpack.config.js를 읽어서 백에서 build해서 서버에서 유지한다.
-package.json -> dev: "webpack-dev-server"로 바꿈 
+package.json -> dev: "webpack-dev-server"로 바꿈
 npm run dev
 -> Server가 뜸
 ```
@@ -103,7 +104,7 @@ module.exports = Component;
 ```jsx
 // export default는 하나만 존재할 수 있다.
 export default Component;
-export const hello = 'hello';
+export const hello = "hello";
 // import { hello } from ... 으로 사용할 수 있다.
 ```
 

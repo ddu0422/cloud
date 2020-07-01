@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 const rspCoords = {
-  rock: "0px",
-  scissors: "-142px",
-  paper: "-284px",
+  rock: '0px',
+  scissors: '-142px',
+  paper: '-284px',
 };
 
 const scores = {
@@ -20,7 +20,7 @@ const computerChoice = (imgCoord) => {
 
 class RSP extends Component {
   state = {
-    result: "",
+    result: '',
     imgCoord: rspCoords.rock,
     score: 0,
   };
@@ -37,7 +37,8 @@ class RSP extends Component {
     clearInterval(this.interval);
   }
 
-  onClickBtn = (choice) => {
+  // 함수안에서 함수를 호출하는 경우 이와 같은 패턴을 사용한다. (High Order Function)
+  onClickBtn = (choice) => () => {
     const { imgCoord } = this.state;
 
     clearInterval(this.interval);
@@ -47,19 +48,19 @@ class RSP extends Component {
 
     if (diff === 0) {
       this.setState({
-        result: "비겼습니다.",
+        result: '비겼습니다.',
       });
     } else if ([-1, 2].includes(diff)) {
       this.setState((prevState) => {
         return {
-          result: "이겼습니다.",
+          result: '이겼습니다.',
           score: prevState.score + 1,
         };
       });
     } else {
       this.setState((prevState) => {
         return {
-          result: "졌습니다.",
+          result: '졌습니다.',
           score: prevState.score - 1,
         };
       });
@@ -102,21 +103,21 @@ class RSP extends Component {
           <button
             id="rock"
             className="button"
-            onClick={() => this.onClickBtn("rock")}
+            onClick={this.onClickBtn('rock')}
           >
             바위
           </button>
           <button
             id="scissors"
             className="button"
-            onClick={() => this.onClickBtn("scissors")}
+            onClick={this.onClickBtn('scissors')}
           >
             가위
           </button>
           <button
             id="paper"
             className="button"
-            onClick={() => this.onClickBtn("paper")}
+            onClick={this.onClickBtn('paper')}
           >
             보
           </button>

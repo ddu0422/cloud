@@ -18,6 +18,15 @@ const computerChoice = (imgCoord) => {
   })[0];
 };
 
+/* Hooks                   result, imgCoord, score
+
+  | componentDidMount
+  | componentDidUpdate
+  | componentWillUnmoun
+  |
+  |-------------------> class
+*/
+
 const RSP = () => {
   const [result, setResult] = useState('');
   const [imgCoord, setImgCoord] = useState(rspCoords.rock);
@@ -37,6 +46,22 @@ const RSP = () => {
     };
     // 바뀌는 state를 넣어줘야한다.
   }, [imgCoord]);
+
+  // class는 분기문으로 처리하지만 hooks는 useEffect를 따로 사용해야한다.
+  // 배열에 관련 없는 값을 넣으면 예상치 못한 결과가 나온다.
+  useEffect(() => {
+    interval.current = setInterval(changeHand, 100);
+    console.log('다시 실행');
+
+    // componentWillUnmount 역할
+    return () => {
+      clearInterval(interval.current);
+      console.log('종료');
+    };
+    // 바뀌는 state를 넣어줘야한다.
+  }, [imgCoord]);
+
+  // useLayoutEffect -> 화면이 바뀌기전에 실행
 
   const onClickBtn = (choice) => () => {
     clearInterval(interval.current);

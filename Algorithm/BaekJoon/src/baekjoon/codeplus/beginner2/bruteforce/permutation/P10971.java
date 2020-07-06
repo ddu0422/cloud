@@ -7,6 +7,10 @@ import java.util.Scanner;
 // 2. 각 수열의 최소값을 찾는다.
 
 public class P10971 {
+
+    private static final int FIRST_VILLAGE = 0;
+    private static final int MAX_VALUE = 10 * 1_000_000 + 1;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -14,7 +18,7 @@ public class P10971 {
         int[] a = new int[n];
         int[][] p = new int[n][n];
 
-        for (int i = 0; i < n; i++) {
+        for (int i = FIRST_VILLAGE; i < n; i++) {
             a[i] = i;
         }
 
@@ -24,9 +28,16 @@ public class P10971 {
             }
         }
 
-        int min = 10 * 1_000_000 + 1;
+        int min = MAX_VALUE;
 
         do {
+            // 중복제거
+            // 1 -> 2 -> 3 -> 4 의 경우와 2 -> 3 -> 4 -> 1, 3 -> 4 -> 1 -> 2, 4 -> 1 -> 2 -> 3의 경우는 모두 동일하므로
+            // 1로 고정해놓고 풀면 중복을 제거할 수 있다.
+            if (a[0] != FIRST_VILLAGE) {
+                break;
+            }
+
             if (canMove(p, a)) {
                 min = Math.min(min, calculate(p, a));
             }

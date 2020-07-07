@@ -1,4 +1,4 @@
-package baekjoon.codeplus.beginner2.bruteforce.recursion;
+package baekjoon.codeplus.beginner2.bruteforce.combination;
 
 // N과 M (4)
 // 선택

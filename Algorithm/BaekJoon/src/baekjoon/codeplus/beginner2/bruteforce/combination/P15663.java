@@ -1,16 +1,16 @@
-package baekjoon.codeplus.beginner2.bruteforce.recursion;
+package baekjoon.codeplus.beginner2.bruteforce.combination;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
-// N과 M (5)
-// 1. 순서
-// 2. 중복 x
-// 3. 오름차순
-// 4. 수를 입력 받음
+// N과 M (9)
 
-public class P15654 {
-    private static StringBuilder stringBuilder = new StringBuilder();
+// 1. 숫자 중복 x
+// 2. 사전 순 출력
+// 3. 수열의 중복 x
+// 3번의 조건을 처리하기가 어려워 다른 분들의 코드를 참고했다.
+// 이전의 수를 현재의 수와 비교해야하는 건 알았지만, 이전 수를 어디서 지정해야 전부 확인을 할 수 있는지 파악하지 못했다.
+
+public class P15663 {
     private static boolean[] check;
     private static int[] numbers;
     private static int[] results;
@@ -32,25 +32,27 @@ public class P15654 {
         Arrays.sort(numbers);
 
         go(0, n, m);
-        System.out.print(stringBuilder.toString());
     }
 
     private static void go(int index, int n, int m) {
         if (index == m) {
             for (int result : results) {
-                stringBuilder.append(result).append(" ");
+                System.out.print(result + " ");
             }
-            stringBuilder.append("\n");
+            System.out.println();
             return;
         }
 
+        int previousNumber = -1;
+
         for (int i = 0; i < n; i++) {
-            if (check[i]) {
+            if (check[i] || previousNumber == numbers[i]) {
                 continue;
             }
 
             check[i] = true;
             results[index] = numbers[i];
+            previousNumber = numbers[i];
             go(index + 1, n, m);
             check[i] = false;
         }

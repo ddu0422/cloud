@@ -1,15 +1,14 @@
-package baekjoon.codeplus.beginner2.bruteforce.recursion;
+package baekjoon.codeplus.beginner2.bruteforce.combination;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-// N과 M (7)
-// 1. 순서
-// 2. 중복 o
-// 3. 사전순 증가
-// 4. 수를 입력 받음
+// N과 M (12)
+// 1. 중복 o
+// 2. 비내림차순
+// 3. 수열 중복 x
 
-public class P15656 {
+public class P15666 {
     private static StringBuilder stringBuilder = new StringBuilder();
     private static int[] numbers;
     private static int[] results;
@@ -29,11 +28,11 @@ public class P15656 {
 
         Arrays.sort(numbers);
 
-        go(0, n, m);
+        go(0, 0, n, m);
         System.out.print(stringBuilder.toString());
     }
 
-    private static void go(int index, int n, int m) {
+    private static void go(int index, int start, int n, int m) {
         if (index == m) {
             for (int result : results) {
                 stringBuilder.append(result).append(" ");
@@ -42,9 +41,15 @@ public class P15656 {
             return;
         }
 
-        for (int i = 0; i < n; i++) {
+        int previousNumber = -1;
+
+        for (int i = start; i < n; i++) {
+            if (previousNumber == numbers[i]) {
+                continue;
+            }
+            previousNumber = numbers[i];
             results[index] = numbers[i];
-            go(index + 1, n, m);
+            go(index + 1, i, n, m);
         }
     }
 }

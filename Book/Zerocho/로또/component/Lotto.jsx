@@ -31,7 +31,8 @@ class Lotto extends Component {
 
   timeouts = [];
 
-  componentDidMount() {
+  runTimeouts = () => {
+    console.log('runTimeouts');
     const { winNumbers } = this.state;
 
     for (let i = 0; i < winNumbers.length - 1; i++) {
@@ -49,6 +50,18 @@ class Lotto extends Component {
         redo: true,
       });
     }, winNumbers.length * 1000);
+  };
+
+  componentDidMount() {
+    console.log('didMount');
+    this.runTimeouts();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('didUpdate');
+    if (this.state.winBalls.length === 0) {
+      this.runTimeouts();
+    }
   }
 
   componentWillUnmount() {
@@ -56,6 +69,17 @@ class Lotto extends Component {
       clearTimeout(value);
     });
   }
+
+  onClickRedo = () => {
+    console.log('onClickRedo');
+    this.setState({
+      winNumbers: getWinNumbers(),
+      winBalls: [],
+      bonus: null,
+      redo: false,
+    });
+    this.timeouts = [];
+  };
 
   render() {
     const { winBalls, bonus, redo } = this.state;

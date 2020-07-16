@@ -35,6 +35,12 @@ function getWinNumbers() {
   return [...winNumbers, bonusNumber];
 }
 
+// Hooks Tips
+// 1. 실행 순서가 중요하기 때문에, 조건문 안에 절대 넣으면 안 되고 함수나 반복문 안에도 웬만하면 넣지 않는다.
+// 2. useMemo는 함수의 return 값, useCallback은 함수 자체를 저장
+// 3. useEffect는 ComponentDidMount + ComponentDidUpdate + ComponentWillUnmount
+// 4. useState는 state를 저장, useRef는 일반값을 저장
+
 const LottoHooks = () => {
   const lottoNumbers = useMemo(() => getWinNumbers(), []);
   const [winNumbers, setWinNumbers] = useState(lottoNumbers);
@@ -42,6 +48,20 @@ const LottoHooks = () => {
   const [bonus, setBonus] = useState(null);
   const [redo, setRedo] = useState(false);
   const timeouts = useRef([]);
+
+  useEffect(() => {
+    // logic
+  }, []); // componentDidMount
+
+  const mounted = useRef(false);
+
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      // logic
+    }
+  }, []); // componenetDidUpdate, []에는 바뀌는 값 필수
 
   useEffect(() => {
     console.log('useEffect');

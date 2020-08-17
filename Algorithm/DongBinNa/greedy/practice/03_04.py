@@ -11,3 +11,17 @@ for i in range(n):
             natural_numbers[temp - 1] = True
 
 print(natural_numbers.index(False) + 1)
+
+"""
+n = int(input())
+numbers = list(map(int, input().split()))[:n]
+
+target = 1
+
+for x in numbers:
+    if target < x:
+        break
+    target += x
+
+print(target)
+"""
